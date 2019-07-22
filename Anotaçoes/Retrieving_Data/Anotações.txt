@@ -1,0 +1,165 @@
+--
+Quando se usar o char como tipo, ele, obrigatoriamento, separa x caracteres de espaço, que foi definido na hora da criação da tabela
+Para resolver isto, usa-se o tipo varchar2, pois ele vai separar até X caracteres, ou seja, se sua palavras tem 5 caracteres, ele irá armazenar 5 carateres e não 250 como o tipo char
+--
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+SQL> conn cert
+Enter password: 
+Connected.
+SQL> 
+SQL> 
+SQL> create table PRODUTO (
+    id integer not null primary key, --Id precisa ser único, por isso o Primary Key e not null para nenhum campo ficar vazio
+    nome varchar2(250),
+    preco number(10,2) --Qtd de digitos totais será 8, pois os dois primeiro serão destina as casas decimais
+);  2    3    4    5  
+
+Table created.
+
+SQL> 
+SQL> select table_name from user_tables;
+
+TABLE_NAME
+------------------------------
+PRODUTO
+
+SQL> desc PRODUTO
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(38)
+ NOME                                               VARCHAR2(250)
+ PRECO                                              NUMBER(10,2)
+
+SQL>     
+SQL> 
+SQL> 
+SQL> alter table PRODUTO add(DataCadastro date);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> desc PRODUTO
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(38)
+ NOME                                               VARCHAR2(250)
+ PRECO                                              NUMBER(10,2)
+ DATACADASTRO                                       DATE
+
+SQL> !
+[oracle@localhost ~]$ 
+[oracle@localhost ~]$ 
+[oracle@localhost ~]$ vim dados_curso.sql
+[oracle@localhost ~]$ 
+[oracle@localhost ~]$ 
+[oracle@localhost ~]$ 
+[oracle@localhost ~]$ exit
+
+SQL> 
+SQL> 
+SQL> @dados_curso.sql
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> desc FUNCIONARIOS;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(11)
+ NOME                                      NOT NULL VARCHAR2(255)
+ SALARIO                                   NOT NULL NUMBER(10,2)
+ VALE_REFEICAO                             NOT NULL NUMBER(10,2)
+
+SQL> 
+SQL> 
+SQL> 
+SQL> commit;            
+
+Commit complete.
+
+SQL> 
+SQL> 
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME
+------------------------------
+PRODUTO
+FUNCIONARIOS
+
+SQL> drop table PRODUTO;
+
+Table dropped.
+
+SQL> select table_name from user_tables;
+
+TABLE_NAME
+------------------------------
+FUNCIONARIOS
+
+SQL>         
+
+
+-------------------------------------
+Aula 3
+
+Distinct, quando se usa distinct num select ele não retorna linhas repetidas
+SQL> select distinct vale_refeicao from funcionarios;
+
+VALE_REFEICAO
+-------------
+          300
+            0
+
+SQL> select vale_refeicao from funcionarios;
+
+VALE_REFEICAO
+-------------
+          300
+          300
+          300
+          300
+            0
+          300
+          300
+          300
+            0
+          300
+
+10 rows selected.
+
+SQL>     
+Distinct é aplicado a linha, e não a coluna, se uma linha for diferente da outra, ele coloca na consulta
